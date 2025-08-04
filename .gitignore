@@ -3,6 +3,19 @@ __pycache__
 *.pyc
 *.pyo
 
-# Large data files (can be regenerated with server/generate.py)
+# Raw external data (re-downloadable)
+data/raw/
+
+# Large processed files (can be regenerated)
 data/yc-embedded.json
+
+# Keep processed data in version control but ignore large files
+data/processed/*.json
+!data/processed/.gitkeep
+
+# Backup files  
+data/backups/
+
+# Legacy files
+data/yc.json
 data/yc_old.json

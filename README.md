@@ -29,11 +29,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. **Generate Embeddings** (⚠️ **REQUIRED** - Not included in repo)
+### 2. **Get YC Data** (⚠️ **REQUIRED** - Not included in repo)
 ```bash
-# The embeddings are NOT included in this repo due to file size (190MB)
-# This step is REQUIRED before you can search - takes 10-15 minutes
-python server/generate.py
+# Option A: Use refresh script (downloads + processes + generates embeddings)
+./refresh_yc_data.sh
+
+# Option B: Manual steps
+wget 'https://github.com/akshaybhalotia/yc_company_scraper/raw/main/data/yc_essential_data.json' -O data/raw/yc-raw.json
+python server/process_raw_data.py  # Clean & normalize
+python server/generate.py          # Generate embeddings (10-15 min)
 ```
 
 ### 3. **Run the Server**
@@ -56,5 +60,25 @@ Visit `http://localhost:5001` and search for:
 - **Normalized batch names**: W##, S##, F##, Sp## format
 - **Latest batches**: W25 (331 cos), S25 (48 cos), F24 (190 cos), Sp25 (143 cos)
 - **Embeddings**: 190MB generated locally (⚠️ **not included in repo** - run `python server/generate.py`)
+
+## 🔧 Data Pipeline & Quality
+
+**Safe data pipeline prevents corruption and ensures consistency:**
+
+- **📁 Data Separation**: Raw external data ≠ processed clean data
+- **🔄 Deduplication**: Removes ~47% duplicate entries from source data
+- **📝 Batch Normalization**: Converts "Winter 2025" → "W25" for consistency  
+- **✅ Automatic Validation**: Format compliance and data integrity checks
+- **💾 Automatic Backups**: Timestamped backups before any data refresh
+- **🛡️ Overwrite Protection**: Raw data downloads never overwrite clean data
+
+**Pipeline Flow:**
+```
+External Source → data/raw/ → process_raw_data.py → data/processed/ → generate.py → search
+```
+
+For complete pipeline details, see [PIPELINE.md](./PIPELINE.md) | For deployment, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+## 🏗️ Architecture
 
 YC Search is built with [the Oak language](https://oaklang.org) and [Torus](https://github.com/thesephist/torus). It runs [sentence-transformers](https://www.sbert.net/) behind a [Flask](https://flask.palletsprojects.com/) server on the backend for semantic indexing and search. The dataset is based on [akshaybhalotia/yc_company_scraper](https://github.com/akshaybhalotia/yc_company_scraper).
