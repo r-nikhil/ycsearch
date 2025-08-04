@@ -14,6 +14,8 @@ This is a modernized and significantly expanded version of the original [ycvibec
 - **Data quality improvements**: Automatic deduplication during embedding generation
 - **Python 3.13** compatibility with updated dependencies
 
+> ⚠️ **Important**: Embeddings are not included in this repository due to size (190MB). You must run `python server/generate.py` before using the search functionality.
+
 Unlike the simple text search box in YC's [startup directory](https://www.ycombinator.com/companies), semantic search means this search bar doesn't need you to get the keywords exactly right, only close enough to what startups are building, to find them.
 
 ## 🏃‍♂️ Quick Start
@@ -27,9 +29,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. **Generate Embeddings** (Required for search)
+### 2. **Generate Embeddings** (⚠️ **REQUIRED** - Not included in repo)
 ```bash
-# This will take 10-15 minutes to process 5,480 companies
+# The embeddings are NOT included in this repo due to file size (190MB)
+# This step is REQUIRED before you can search - takes 10-15 minutes
 python server/generate.py
 ```
 
@@ -52,6 +55,6 @@ Visit `http://localhost:5001` and search for:
 - **Complete coverage**: Winter, Summer, Fall, and Spring batches
 - **Normalized batch names**: W##, S##, F##, Sp## format
 - **Latest batches**: W25 (331 cos), S25 (48 cos), F24 (190 cos), Sp25 (143 cos)
-- **Embeddings**: 190MB generated with sentence-transformers
+- **Embeddings**: 190MB generated locally (⚠️ **not included in repo** - run `python server/generate.py`)
 
 YC Search is built with [the Oak language](https://oaklang.org) and [Torus](https://github.com/thesephist/torus). It runs [sentence-transformers](https://www.sbert.net/) behind a [Flask](https://flask.palletsprojects.com/) server on the backend for semantic indexing and search. The dataset is based on [akshaybhalotia/yc_company_scraper](https://github.com/akshaybhalotia/yc_company_scraper).
