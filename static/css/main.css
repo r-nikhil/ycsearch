@@ -383,7 +383,7 @@ li.search-results-item {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 12px;
+    gap: 20px;
     border-radius: 4px;
     cursor: pointer;
     padding: 2px;
@@ -421,7 +421,9 @@ li.search-results-item {
 }
 
 .company .company-name-batch {
-    min-width: 24ch;
+    width: 24ch;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .company .company-name-batch-header {
@@ -511,6 +513,9 @@ li.search-results-item {
 
 .company .company-name {
     flex-grow: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .company .company-img {
@@ -525,6 +530,9 @@ li.search-results-item {
     color: var(--primary-text);
     text-decoration: none;
     font-weight: bold;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: inline-block;
 }
 
 .company a.primary-name:hover {
@@ -535,6 +543,11 @@ li.search-results-item {
     width: 4ch;
     color: var(--secondary-text);
     font-variant-numeric: tabular-nums;
+}
+
+.company .company-description {
+    flex: 1;
+    min-width: 0;
 }
 
 .company .company-description p {
@@ -729,7 +742,7 @@ footer a:hover {
 
 @media only screen and (max-width: 800px) {
     .company .company-name-batch {
-        min-width: 20ch;
+        width: 20ch;
     }
 }
 
@@ -765,6 +778,10 @@ footer a:hover {
         gap: 12px;
         width: 100%;
         justify-content: space-between;
+    }
+
+    .company {
+        gap: 16px;
     }
 
     .company .company-name-batch-tags {

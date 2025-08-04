@@ -6,7 +6,18 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
 with open('data/yc.json', 'r') as yc_file:
-    yc_companies = json.load(yc_file)
+    yc_companies_raw = json.load(yc_file)
+    
+    # Deduplicate by slug, keeping the first occurrence
+    seen_slugs = set()
+    yc_companies = []
+    for co in yc_companies_raw:
+        if co['slug'] not in seen_slugs:
+            seen_slugs.add(co['slug'])
+            yc_companies.append(co)
+    
+    print(f'Deduplicated: {len(yc_companies_raw)} → {len(yc_companies)} companies')
+    
     for i, co in enumerate(yc_companies):
         print(f'{i}/{len(yc_companies)}', co['name'])
         description = co.get('long_description') or co.get('one_liner')

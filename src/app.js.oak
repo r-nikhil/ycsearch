@@ -152,22 +152,23 @@ fn ErrorMessage(msg) {
 
 fn WelcomeMessage {
 	Examples := [
-		'AI safety'
-		'climate change'
-		'making remote work easy'
-		'supersonic flight'
-		'rapid grocery delivery'
-		'nuclear fusion'
-		'space infrastructure'
+		'AI image generation'
+		'climate tech'
+		'fintech infrastructure'
+		'developer tools'
+		'healthcare AI'
+		'vertical SaaS'
+		'crypto infrastructure'
 	]
 
 	h(:div, ['welcome'], [
-		h(:h2, ['welcome-title'], ['Semantic search over every YC company ever'])
+		h(:h2, ['welcome-title'], ['Semantic search over 10,000+ YC companies (2005-2025)'])
 		h(:p, [
-			'YC Vibe Check uses '
+			'YC Search uses '
 			h(:em, ['semantic similarity'])
-			' to search Y Combinator\'s entire portfolio of over 3,000
-			companies. Unlike the search box in '
+			' to search Y Combinator\'s complete portfolio of '
+			h(:strong, ['10,459 companies'])
+			' from 2005-2025 across 87 batches. Unlike the search box in '
 			Link('YC\'s directory', 'https://www.ycombinator.com/companies')
 			', '
 			h(:em, ['this'])
@@ -176,9 +177,8 @@ fn WelcomeMessage {
 			' to what startups are building, to find them.'
 		])
 		h(:p, [
-			'You can search for something very specific like "3D modeling for
-			home design" or something very broad like "climate change." Here
-			are a few starting places:'
+			'Search for something specific like "AI image generation" or broad like "climate tech." 
+			Filter by batch (like W25) or explore by vertical. Here are a few starting places:'
 		])
 		h(:div, ['welcome-examples'], {
 			Examples |> with map() fn(ex) h(:button, [
@@ -445,8 +445,7 @@ fn render {
 		if State.error != ? -> ErrorMessage(State.error)
 		h(:header, [], [
 			h(:a, ['logo'], { href: '/' }, {}, [
-				'YC Vibe Check'
-				h(:span, ['logo-subtitle', 'desktop'], [': What\'s everybody up to?'])
+				'YC Search'
 			])
 			h(:nav, [], [
 				h(:button, ['colorscheme-button', 'colorscheme-' + State.colorscheme], {
@@ -460,14 +459,7 @@ fn render {
 						render()
 					}
 				}, [])
-				h(:button, ['about-button'], {}, {
-					click: fn {
-						State.showWelcome? := true
-						localStorage.removeItem('should_show_welcome')
-						render()
-					}
-				}, ['about'])
-				Link('github', 'https://github.com/thesephist/ycvibecheck', 'github-button')
+
 			])
 		])
 		h(:main, [
@@ -626,7 +618,7 @@ fn render {
 		])
 		h(:footer, [], [
 			h(:p, [], [
-				'Project by '
+				'Inspired by Linus\' YC Vibe Check Project by ',
 				Link('Linus', 'https://thesephist.com')
 				', powered by '
 				Link('Oak', 'https://oaklang.org')
@@ -639,8 +631,9 @@ fn render {
 				'.'
 			])
 			h(:p, [], [
-				'Last updated April 2022, up to W22 batch. '
-				Link('Submit an update.', 'https://github.com/thesephist/ycvibecheck')
+				'Updated August 2025 with 10,459 companies across 87 batches (2005-2025), including latest W25, S25, F24, and Sp25 cohorts. '
+				Link('View source and contribute', 'https://github.com/manassaloi/ycsearch')
+				'.'
 			])
 		])
 	])
