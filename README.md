@@ -13,8 +13,6 @@ This is a modernized and significantly expanded version of the original [ycvibec
 - **Fixed sorting**: Homepage now shows newest companies first
 - **Python 3.13** compatibility with updated dependencies
 
-![Screen recording of a search results page on YC Vibe Check](/static/img/screen-recording.gif)
-
 Unlike the simple text search box in YC's [startup directory](https://www.ycombinator.com/companies), semantic search means this search bar doesn't need you to get the keywords exactly right, only close enough to what startups are building, to find them.
 
 ## 🏃‍♂️ Quick Start
