@@ -92,23 +92,10 @@ header a.logo {
 
 /* Accessibility improvements */
 *:focus {
-    outline: 3px solid var(--brutal-electric);
-    outline-offset: 2px;
+    outline: none;
 }
 
-/* High contrast focus for form elements */
-form .search-input:focus,
-form .search-button:focus,
-form select:focus {
-    outline: 3px solid var(--brutal-hot-pink);
-    outline-offset: 3px;
-}
 
-/* Ensure interactive elements have proper focus indicators */
-.company:focus {
-    outline: 3px solid var(--brutal-electric);
-    outline-offset: 2px;
-}
 
 /* Improve contrast for secondary text */
 .company .company-news-meta,
@@ -354,7 +341,7 @@ form .search-autocomplete-group {
     width: 100%;
     max-height: calc(100vh - 64px);
     background: var(--primary-bg);
-    border: 3px solid var(--brutal-electric);
+    border: none;
     border-radius: 16px;
     box-shadow: var(--brutal-shadow-heavy);
     overflow: hidden;
@@ -371,6 +358,7 @@ form .search-autocomplete-group {
     opacity: 0;
     transform: translate(0, -16px) scaleY(0.7) rotate(2deg);
     pointer-events: none;
+    display: none;
 }
 
 .search-autocomplete .autocomplete-suggestion {
@@ -426,14 +414,57 @@ form select {
 form .search-input {
     font-size: 1.2em;
     background: var(--primary-bg);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-decoration: none;
+    border-bottom: none !important;
+    box-shadow: var(--brutal-shadow-light) !important;
 }
 
 form .search-input:focus {
-    outline: 0;
-    background: var(--brutal-yellow);
-    border-color: var(--brutal-hot-pink);
-    box-shadow: var(--brutal-shadow-colored);
-    transform: translate(-2px, -2px);
+    outline: none !important;
+    outline-offset: 0 !important;
+    border: 3px solid var(--primary-text) !important;
+    box-shadow: var(--brutal-shadow-light) !important;
+    -webkit-focus-ring-color: transparent !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Additional aggressive focus override */
+form .search-input:focus-visible {
+    outline: none !important;
+    outline-offset: 0 !important;
+    border: 3px solid var(--primary-text) !important;
+    box-shadow: var(--brutal-shadow-light) !important;
+}
+
+form .search-input:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Nuclear option - target input directly */
+input.search-input,
+input.search-input:focus,
+input.search-input:focus-visible,
+input.search-input:active {
+    outline: none !important;
+    outline-offset: 0 !important;
+    border: 3px solid var(--primary-text) !important;
+    box-shadow: var(--brutal-shadow-light) !important;
+}
+
+/* Ultra high specificity override */
+input[type="text"].search-input:focus,
+input[type="text"].search-input:focus-visible {
+    outline: 0 !important;
+    outline-width: 0 !important;
+    outline-style: none !important;
+    outline-color: transparent !important;
+    border: 3px solid var(--primary-text) !important;
+    box-shadow: var(--brutal-shadow-light) !important;
 }
 
 form .search-input::placeholder {
@@ -468,6 +499,8 @@ form select {
     cursor: pointer;
     background: var(--brutal-lime);
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 form select:focus,
@@ -478,8 +511,129 @@ form select:hover {
     box-shadow: var(--brutal-shadow-heavy);
 }
 
+
 form label {
     cursor: pointer;
+}
+
+/* Custom Batch Dropdown */
+.batch-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.batch-dropdown-button {
+    border: 3px solid var(--primary-text);
+    color: inherit;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--brutal-lime);
+    box-shadow: var(--brutal-shadow-light);
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-right: 40px;
+    min-width: 140px;
+    text-align: left;
+}
+
+.batch-dropdown-button::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: 16px;
+    transition: transform .2s ease;
+}
+
+.batch-dropdown-button.batch-dropdown-open::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.batch-dropdown-button:focus,
+.batch-dropdown-button:hover {
+    background: var(--brutal-purple);
+    color: var(--primary-bg);
+    transform: translate(-1px, -1px);
+    box-shadow: var(--brutal-shadow-heavy);
+}
+
+.batch-dropdown-button:focus::after,
+.batch-dropdown-button:hover::after {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fdfeff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+/* Dark mode dropdown arrow */
+.dark .batch-dropdown-button::after {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ebebeb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+.dark .batch-dropdown-button:focus::after,
+.dark .batch-dropdown-button:hover::after {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23141516' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+.batch-dropdown-list {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--primary-bg);
+    border: 3px solid var(--brutal-electric);
+    border-radius: 12px;
+    box-shadow: var(--brutal-shadow-heavy);
+    transform: translate(-2px, -2px) rotate(-0.5deg);
+}
+
+.batch-dropdown-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    border-bottom: 2px solid var(--secondary-bg);
+    transition: all .2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95em;
+}
+
+.batch-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.batch-dropdown-item:hover {
+    background: var(--brutal-yellow);
+    transform: translate(2px, 0px);
+    font-weight: 700;
+}
+
+.batch-dropdown-item.batch-dropdown-item-selected {
+    background: var(--brutal-hot-pink);
+    color: var(--primary-bg);
+    font-weight: 700;
+}
+
+.batch-dropdown-item.batch-dropdown-item-highlighted {
+    background: var(--brutal-yellow);
+    transform: translate(2px, 0px);
+    font-weight: 700;
+}
+
+.batch-dropdown-item:active {
+    background: var(--brutal-lime);
+    transform: translate(0px, 0px);
 }
 
 form input[type=checkbox] {

@@ -41,6 +41,10 @@ State := {
 		idx: 0
 		suggestions: []
 	}
+	batchDropdown: {
+		show?: false
+		selectedIdx: 0
+	}
 	filters: {
 		batch: ?
 		status: ?
@@ -125,6 +129,120 @@ fn suggestionString(sugg) {
 
 fn autocompleteVisible? {
 	State.autocomplete.show? & len(State.autocomplete.suggestions) > 0
+}
+
+fn BatchDropdown {
+	allBatches := ['All batches'] |> append(YC_BATCHES)
+	selectedBatch := if State.search.batch {
+		? -> 'All batches'
+		_ -> State.search.batch
+	}
+
+	fn toggleDropdown {
+		if State.batchDropdown.show? {
+			true -> {
+				// Closing dropdown
+				State.batchDropdown.show? := false
+			}
+			_ -> {
+				// Opening dropdown
+				State.batchDropdown.show? := true
+				State.batchDropdown.selectedIdx := 0
+				// Add click-outside listener after render
+				with wait(0.01) fn {
+					fn handleClickOutside(evt) if evt.target.closest('.batch-dropdown') = ? -> {
+						State.batchDropdown.show? := false
+						document.removeEventListener('click', handleClickOutside)
+						render()
+					}
+					document.addEventListener('click', handleClickOutside)
+				}
+			}
+		}
+		render()
+	}
+
+	fn selectBatch(batch) {
+		State.search.batch := if batch {
+			'All batches' -> ?
+			_ -> batch
+		}
+		State.batchDropdown.show? := false
+		performSearch()
+	}
+
+	fn handleKeyDown(evt) if evt.key {
+		'Escape' -> {
+			evt.preventDefault()
+			State.batchDropdown.show? := false
+			render()
+		}
+		'Enter' -> if State.batchDropdown.show? -> {
+			evt.preventDefault()
+			selectedBatch := allBatches.(State.batchDropdown.selectedIdx)
+			selectBatch(selectedBatch)
+		}
+		'ArrowDown' -> if State.batchDropdown.show? -> {
+			evt.preventDefault()
+			maxIdx := len(allBatches) - 1
+			State.batchDropdown.selectedIdx := if State.batchDropdown.selectedIdx < maxIdx {
+				true -> State.batchDropdown.selectedIdx + 1
+				_ -> 0
+			}
+			render()
+		}
+		'ArrowUp' -> if State.batchDropdown.show? -> {
+			evt.preventDefault()
+			maxIdx := len(allBatches) - 1
+			State.batchDropdown.selectedIdx := if State.batchDropdown.selectedIdx > 0 {
+				true -> State.batchDropdown.selectedIdx - 1
+				_ -> maxIdx
+			}
+			render()
+		}
+	}
+
+	h(:div, ['batch-dropdown'], [
+		h(:button, [
+			'batch-dropdown-button'
+			if State.batchDropdown.show? {
+				true -> 'batch-dropdown-open'
+				_ -> ''
+			}
+		], { tabIndex: 0 }, {
+			click: fn(evt) {
+				evt.preventDefault()
+				evt.stopPropagation()
+				toggleDropdown()
+			}
+			keydown: handleKeyDown
+		}, [selectedBatch])
+		if State.batchDropdown.show? -> h(:div, ['batch-dropdown-list'], {
+			allBatches |> with map() fn(batch, i) {
+				h(:div, [
+					'batch-dropdown-item'
+					if batch = selectedBatch {
+						true -> 'batch-dropdown-item-selected'
+						_ -> ''
+					}
+					if i = State.batchDropdown.selectedIdx {
+						true -> 'batch-dropdown-item-highlighted'
+						_ -> ''
+					}
+				], {}, {
+					click: fn(evt) {
+						evt.preventDefault()
+						evt.stopPropagation()
+						selectBatch(batch)
+					}
+					mouseenter: fn {
+						State.batchDropdown.selectedIdx := i
+						render()
+					}
+				}, [batch])
+			}
+		})
+	])
 }
 
 r := Renderer('#root')
@@ -540,29 +658,8 @@ fn render {
 					h(:button, ['search-button'], { title: 'Submit search' }, ['Search'])
 				])
 				h(:div, ['search-filter-row'], [
-					h(:label, ['search-filter-batch'], [
-						h(:select, [], {}, {
-							change: fn(evt) {
-								State.search.batch := if batch := evt.target.value {
-									'' -> ?
-									_ -> batch
-								}
-								performSearch()
-							}
-						}, {
-							allBatches := h(:option, [], {
-								value: ''
-								selected: ? = State.search.batch
-							}, ['All batches'])
-							batches := YC_BATCHES |> with map() fn(batch) {
-								h(:option, [], {
-									value: batch
-									selected: batch = State.search.batch
-								}, [batch])
-							}
-
-							[allBatches] |> append(batches)
-						})
+					h(:div, ['search-filter-batch'], [
+						BatchDropdown()
 					])
 					h(:label, ['search-filter-active'], [
 						h(:input, [], {
