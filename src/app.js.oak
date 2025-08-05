@@ -55,10 +55,7 @@ State := {
 	scrapes: {}
 	results: []
 	error: ?
-	colorscheme: if localStorage.getItem('colorscheme') {
-		'dark' -> 'dark'
-		_ -> 'light'
-	}
+	colorscheme: 'light'
 	showWelcome?: if localStorage.getItem('should_show_welcome') {
 		'false' -> false
 		_ -> true
@@ -114,13 +111,7 @@ fn hideWelcome {
 	localStorage.setItem('should_show_welcome', 'false')
 }
 
-fn toggleColorScheme {
-	State.colorscheme := if State.colorscheme {
-		'light' -> 'dark'
-		_ -> 'light'
-	}
-	localStorage.setItem('colorscheme', State.colorscheme)
-}
+
 
 fn suggestionString(sugg) {
 	[name, desc] := sugg
@@ -535,20 +526,7 @@ fn render {
 			h(:a, ['logo'], { href: '/' }, {}, [
 				'YC Search'
 			])
-			h(:nav, [], [
-				h(:button, ['colorscheme-button', 'colorscheme-' + State.colorscheme], {
-					title: if State.colorscheme {
-						'light' -> 'Dark mode'
-						'dark' -> 'Light mode'
-					}
-				}, {
-					click: fn {
-						toggleColorScheme()
-						render()
-					}
-				}, [])
-
-			])
+			h(:nav, [], [])
 		])
 		h(:main, [
 			if State.showWelcome? -> WelcomeMessage()

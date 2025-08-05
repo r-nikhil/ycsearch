@@ -159,44 +159,7 @@ header a.logo .logo-subtitle {
     color: var(--secondary-text);
 }
 
-header .colorscheme-button {
-    height: 40px;
-    width: 40px;
-    padding: 0;
-    cursor: pointer;
-    display: block;
-    color: var(--primary-text);
-    border: 3px solid var(--primary-text);
-    border-radius: 50%;
-    background-color: var(--brutal-yellow);
-    background-repeat: no-repeat;
-    background-position: center center;
-    box-shadow: var(--brutal-shadow-light);
-    transition: all .2s ease;
-}
 
-.dark header .colorscheme-button {
-    background-color: var(--brutal-purple);
-    filter: invert(0);
-}
-
-header .colorscheme-button:hover {
-    background-color: var(--brutal-hot-pink);
-    transform: rotate(45deg) scale(1.1);
-    box-shadow: var(--brutal-shadow-heavy);
-}
-
-.dark header .colorscheme-button:hover {
-    background-color: var(--brutal-lime);
-}
-
-header .colorscheme-button.colorscheme-light {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItc3VuIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI1Ij48L2NpcmNsZT48bGluZSB4MT0iMTIiIHkxPSIxIiB4Mj0iMTIiIHkyPSIzIj48L2xpbmU+PGxpbmUgeDE9IjEyIiB5MT0iMjEiIHgyPSIxMiIgeTI9IjIzIj48L2xpbmU+PGxpbmUgeDE9IjQuMjIiIHkxPSI0LjIyIiB4Mj0iNS42NCIgeTI9IjUuNjQiPjwvbGluZT48bGluZSB4MT0iMTguMzYiIHkxPSIxOC4zNiIgeDI9IjE5Ljc4IiB5Mj0iMTkuNzgiPjwvbGluZT48bGluZSB4MT0iMSIgeTE9IjEyIiB4Mj0iMyIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjIxIiB5MT0iMTIiIHgyPSIyMyIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjQuMjIiIHkxPSIxOS43OCIgeDI9IjUuNjQiIHkyPSIxOC4zNiI+PC9saW5lPjxsaW5lIHgxPSIxOC4zNiIgeTE9IjUuNjQiIHgyPSIxOS43OCIgeTI9IjQuMjIiPjwvbGluZT48L3N2Zz4=');
-}
-
-header .colorscheme-button.colorscheme-dark {
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9vbiI+PHBhdGggZD0iTTIxIDEyLjc5QTkgOSAwIDEgMSAxMS4yMSAzIDcgNyAwIDAgMCAyMSAxMi43OXoiPjwvcGF0aD48L3N2Zz4=');
-}
 
 header .about-button {
     border: 0;
@@ -1105,10 +1068,7 @@ footer a:hover {
         text-shadow: 1px 1px 0px var(--brutal-electric);
     }
 
-    header .colorscheme-button {
-        height: 32px;
-        width: 32px;
-    }
+
 
     /* autocomplete dropdown positioning */
     form .search-autocomplete-group {
