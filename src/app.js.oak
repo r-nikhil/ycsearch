@@ -588,7 +588,7 @@ fn render {
 		])
 		h(:footer, [], [
 			h(:p, [], [
-				'Inspired by Linus\' YC Vibe Check Project by ',
+				'Based on Linus\' original YC Vibe Check by ',
 				Link('Linus', 'https://thesephist.com')
 				', powered by '
 				Link('Oak', 'https://oaklang.org')

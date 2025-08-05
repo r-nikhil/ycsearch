@@ -345,7 +345,7 @@ flask run --port 5001
 - **Production Server**: uWSGI with Flask application
 - **Static Files**: Served directly by web server
 - **Data Pipeline**: Scheduled refresh scripts for data updates
-- **Service Configuration**: systemd service file (`ycvibecheck.service`)
+- **Service Configuration**: systemd service file (`ycsearch.service`)
 - **Domain Setup**: Reverse proxy configuration
 
 ### Monitoring & Logging

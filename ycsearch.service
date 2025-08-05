@@ -1,0 +1,13 @@
+[Unit]
+Description=YC Search - Semantic search engine for Y Combinator companies
+After=network.target
+
+[Service]
+User=ycsearch-user
+Group=www-data
+WorkingDirectory=/home/ycsearch-user/ycsearch
+ExecStart=/home/ycsearch-user/ycsearch/.venv/bin/uwsgi --ini app.ini
+
+[Install]
+WantedBy=multi-user.target
+
