@@ -234,10 +234,10 @@ header a.github-button:hover {
     transition: all .3s ease;
 }
 
-.welcome:hover {
+/* .welcome:hover {
     transform: rotate(0deg) scale(1.02);
     box-shadow: 12px 12px 0px var(--primary-text);
-}
+} */
 
 .welcome p {
     max-width: 64ch;
@@ -1185,9 +1185,9 @@ footer a:hover {
         border-radius: 16px;
     }
 
-    .welcome:hover {
+    /* .welcome:hover {
         transform: scale(1.01);
         box-shadow: var(--brutal-shadow-heavy);
-    }
+    } */
 }
 
