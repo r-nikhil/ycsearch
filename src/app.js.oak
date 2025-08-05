@@ -167,15 +167,9 @@ fn WelcomeMessage {
 			' to what startups are building, to find them.'
 		])
 		h(:p, [
-			'Search for something specific like "AI image generation" or broad like "climate tech." 
+			'Search for something specific like "AI image generation" or broad like "climate tech."
 			Filter by batch (like W25) or explore by vertical.'
 		])
-		h(:button, ['welcome-hide-button'], {}, {
-			click: fn {
-				hideWelcome()
-				render()
-			}
-		}, [])
 	])
 }
 
@@ -631,4 +625,3 @@ search.setErrorHandler(fn setError(msg) {
 
 render()
 performSearch()
-
