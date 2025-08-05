@@ -4,7 +4,13 @@ run = "export FLASK_APP=app.py flask run --port 5001"
 
 [nix]
 channel = "stable-25_05"
+packages = ["cacert", "cargo", "glibcLocales", "libiconv", "libjpeg_turbo", "libpng", "libxcrypt", "openssl", "pkg-config", "rustc", "wget", "which", "xsimd"]
 
 [deployment]
 build = ["sh", "-c", "make"]
 run = ["sh", "-c", "export FLASK_APP=app.py flask run --port 5001"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+exposeLocalhost = true

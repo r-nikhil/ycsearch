@@ -16,7 +16,7 @@ echo "⬇️  Downloading fresh raw data..."
 wget 'https://github.com/akshaybhalotia/yc_company_scraper/raw/main/data/yc_essential_data.json' -O data/raw/yc-raw.json
 
 # 3. Activate virtualenv
-source .venv/bin/activate
+# source .venv/bin/activate
 
 # 4. Process raw data through normalization pipeline
 echo "🔧 Processing raw data through normalization pipeline..."
