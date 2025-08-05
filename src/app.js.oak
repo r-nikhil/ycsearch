@@ -151,16 +151,6 @@ fn ErrorMessage(msg) {
 }
 
 fn WelcomeMessage {
-	Examples := [
-		'AI image generation'
-		'climate tech'
-		'fintech infrastructure'
-		'developer tools'
-		'healthcare AI'
-		'vertical SaaS'
-		'crypto infrastructure'
-	]
-
 	h(:div, ['welcome'], [
 		h(:h2, ['welcome-title'], ['Semantic search over 5,000+ YC companies (2005-2025)'])
 		h(:p, [
@@ -178,22 +168,8 @@ fn WelcomeMessage {
 		])
 		h(:p, [
 			'Search for something specific like "AI image generation" or broad like "climate tech." 
-			Filter by batch (like W25) or explore by vertical. Here are a few starting places:'
+			Filter by batch (like W25) or explore by vertical.'
 		])
-		h(:div, ['welcome-examples'], {
-			Examples |> with map() fn(ex) h(:button, [
-				'welcome-example-button'
-				if State.search.query {
-					ex -> 'example-selected'
-					_ -> ''
-				}
-			], {}, {
-				click: fn {
-					State.search.query := ex
-					performSearch()
-				}
-			}, [ex])
-		})
 		h(:button, ['welcome-hide-button'], {}, {
 			click: fn {
 				hideWelcome()

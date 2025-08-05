@@ -1,7 +1,6 @@
 import json
 from flask import Flask, request, jsonify, send_from_directory
-from server.search import search, all as all_companies, all_names_desc, all_batches
-from server.scrape import company as scrape_company
+from server.search import search, all as all_companies, all_names_desc, all_batches, get_company_by_slug
 
 app = Flask(__name__,
         static_url_path='/',
@@ -38,9 +37,9 @@ def get_company():
     if not slug:
         return jsonify(None)
 
-    scraped = scrape_company(slug)
-    if scraped:
-        return jsonify(scraped)
+    company_data = get_company_by_slug(slug)
+    if company_data:
+        return jsonify(company_data)
     return f'Could not find company metadata for "{slug}"', 500
 
 @app.route('/preloads.js', methods=['GET'])

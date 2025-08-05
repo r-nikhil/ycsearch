@@ -45,3 +45,11 @@ def all():
         co.pop('description_embedding')
     return results
 
+def get_company_by_slug(slug):
+    for co in yc_companies:
+        if co.get('slug') == slug:
+            result = co.copy()
+            result.pop('description_embedding', None)
+            return result
+    return None
+
