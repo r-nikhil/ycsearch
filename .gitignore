@@ -19,3 +19,4 @@ data/backups/
 # Legacy files
 data/yc.json
 data/yc_old.json
+.DS_Store
